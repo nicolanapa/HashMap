@@ -121,7 +121,22 @@ class HashMap {
 		}
 	}
 
-	length() {}
+	// Returns the number of stored keys
+	// Working
+	length() {
+		console.log("Getting length...");
+
+		let stored = 0;
+
+		for (let i = 0; i < this.buckets.length; i++) {
+			if (this.buckets[i] === undefined) {
+			} else if (this.buckets[i].hashedKey) {
+				stored += 1;
+			}
+		}
+
+		return stored;
+	}
 
 	clear() {}
 
@@ -155,6 +170,9 @@ function test() {
 	console.log(prova0.get("Marco"));
 	console.log();
 	console.log(prova0.has("Marco"));
+	console.log();
+
+	console.log(prova0.length());
 	console.log();
 }
 
