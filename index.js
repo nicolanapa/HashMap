@@ -115,8 +115,6 @@ class HashMap {
 			} else if (this.buckets[hashedKey].hashedKey === hashedKey) {
 				this.buckets[hashedKey] = undefined;
 				return true;
-			} else {
-				return false;
 			}
 		}
 	}
@@ -130,7 +128,7 @@ class HashMap {
 
 		for (let i = 0; i < this.buckets.length; i++) {
 			if (this.buckets[i] === undefined) {
-			} else if (this.buckets[i].hashedKey) {
+			} else if (this.buckets[i].hashedKey >= 0) {
 				stored += 1;
 			}
 		}
@@ -155,7 +153,7 @@ class HashMap {
 
 		for (let i = 0; i < this.buckets.length; i++) {
 			if (this.buckets[i] === undefined) {
-			} else if (this.buckets[i].hashedKey) {
+			} else if (this.buckets[i].hashedKey >= 0) {
 				array.push(this.buckets[i].hashedKey);
 			}
 		}
