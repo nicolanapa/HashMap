@@ -138,9 +138,19 @@ class HashMap {
 		return stored;
 	}
 
-	clear() {}
+	// Removes everything in a hash map but keeps the length
+    // Working
+	clear() {
+		console.log("Removing everything...");
 
-	keys() {}
+		let i = this.buckets.length;
+		this.buckets = [];
+		this.buckets.length = i;
+	}
+
+	keys() {
+        //console.log("Returning all keys...");
+    }
 
 	values() {}
 
@@ -172,6 +182,8 @@ function test() {
 	console.log(prova0.has("Marco"));
 	console.log();
 
+	prova0.clear();
+	console.log();
 	console.log(prova0.length());
 	console.log();
 }
