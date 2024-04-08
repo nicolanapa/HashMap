@@ -139,7 +139,7 @@ class HashMap {
 	}
 
 	// Removes everything in a hash map but keeps the length
-    // Working
+	// Working
 	clear() {
 		console.log("Removing everything...");
 
@@ -149,8 +149,19 @@ class HashMap {
 	}
 
 	keys() {
-        //console.log("Returning all keys...");
-    }
+		console.log("Returning all keys...");
+
+		let array = [];
+
+		for (let i = 0; i < this.buckets.length; i++) {
+			if (this.buckets[i] === undefined) {
+			} else if (this.buckets[i].hashedKey) {
+				array.push(this.buckets[i].hashedKey);
+			}
+		}
+
+		return array;
+	}
 
 	values() {}
 
@@ -160,9 +171,12 @@ class HashMap {
 function test() {
 	let prova0 = new HashMap();
 	//prova0.hash("Luca");
-	prova0.set("Luca", "Agente 000");
+	prova0.set("Luca", "Agente 00");
 	console.log();
 	prova0.set("Luca", "Agente 007");
+	prova0.set("Mario Rossi", "Agente 000");
+	prova0.set("Pago Col Pos", "Agente 013");
+	prova0.set("Cioppa Tutto", "Agente 006");
 	console.log();
 
 	console.log(prova0.get("Luca"));
@@ -182,9 +196,20 @@ function test() {
 	console.log(prova0.has("Marco"));
 	console.log();
 
+	console.log(prova0.length());
+	console.log();
+	console.log(prova0.keys());
+	console.log();
+	console.log(prova0.values());
+	console.log();
+
 	prova0.clear();
 	console.log();
 	console.log(prova0.length());
+	console.log();
+	console.log(prova0.keys());
+	console.log();
+	console.log(prova0.values());
 	console.log();
 }
 
