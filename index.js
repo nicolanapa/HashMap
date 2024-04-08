@@ -80,8 +80,8 @@ class HashMap {
 		}
 	}
 
-    // Returns true if it has key, otherwise false
-    // Working
+	// Returns true if it has key, otherwise false
+	// Working
 	has(key) {
 		console.log("Checking if it has:", key);
 
@@ -100,8 +100,10 @@ class HashMap {
 		}
 	}
 
+	// Removes and returns true if a element has a given key, otherwise returns only false
+	// Working
 	remove(key) {
-        console.log("Trying to remove element with key:", key);
+		console.log("Trying to remove element with key:", key);
 
 		let hashedKey = this.hash(key);
 
@@ -111,13 +113,13 @@ class HashMap {
 			if (this.buckets[hashedKey] === undefined) {
 				return false;
 			} else if (this.buckets[hashedKey].hashedKey === hashedKey) {
-                this.buckets[hashedKey] = undefined;
+				this.buckets[hashedKey] = undefined;
 				return true;
 			} else {
 				return false;
 			}
 		}
-    }
+	}
 
 	length() {}
 
@@ -145,15 +147,15 @@ function test() {
 	console.log(prova0.has("Lucas"));
 	console.log();
 
-    // Marco1 === Luca === 7
+	// Marco1 === Luca === 7
 	prova0.set("Marco", "Agente 0010");
 	console.log();
-    console.log(prova0.remove("Marco"));
-    console.log();
-    console.log(prova0.get("Marco"));
-    console.log();
-    console.log(prova0.has("Marco"));
-    console.log();
+	console.log(prova0.remove("Marco"));
+	console.log();
+	console.log(prova0.get("Marco"));
+	console.log();
+	console.log(prova0.has("Marco"));
+	console.log();
 }
 
 test();
