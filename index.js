@@ -3,6 +3,8 @@ if (index < 0 || index >= buckets.length) {
   throw new Error("Trying to access index out of bound");
 }
 */
+
+// Change from Node to Bucket ?
 class Node {
 	constructor(hashedKey, value) {
 		this.hashedKey = hashedKey;
@@ -17,6 +19,8 @@ class HashMap {
 		console.log(this.buckets);
 	}
 
+	// Hashes a given key to any number from 0 to 15
+	// Working
 	hash(key) {
 		console.log("Hashing:", key);
 
@@ -36,7 +40,12 @@ class HashMap {
 
 	// Key assigned to value if there isn't a Key with the same key
 	// Updates a key's value with a new value if there's already a key
-	// Working halfly
+	/* 
+        Working 1/2 
+        [need to use Linked List (or something similar) for
+         managing collisions (different keys inside the same bucket/Node)
+        ]
+     */
 	set(key, value) {
 		console.log("Trying to set/overwrite", key, "with", value);
 
@@ -146,6 +155,8 @@ class HashMap {
 		this.buckets.length = i;
 	}
 
+	// Returns an array containing all the keys
+	// Working
 	keys() {
 		console.log("Returning all keys...");
 
@@ -161,8 +172,10 @@ class HashMap {
 		return array;
 	}
 
+	// Same as keys() but returns all the values in an array
 	values() {}
 
+	//
 	entries() {}
 }
 
@@ -200,6 +213,8 @@ function test() {
 	console.log();
 	console.log(prova0.values());
 	console.log();
+	console.log(prova0.entries());
+	console.log();
 
 	prova0.clear();
 	console.log();
@@ -208,6 +223,8 @@ function test() {
 	console.log(prova0.keys());
 	console.log();
 	console.log(prova0.values());
+	console.log();
+	console.log(prova0.entries());
 	console.log();
 }
 
