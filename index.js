@@ -173,6 +173,7 @@ class HashMap {
 	}
 
 	// Same as keys() but returns all the values in an array
+	// Working
 	values() {
 		console.log("Returning all values...");
 
@@ -188,7 +189,9 @@ class HashMap {
 		return array;
 	}
 
-	//
+	// Returns an array that contains each (key, value) pair
+	// [[firstKey, firstValue], [secondKey, secondValue]]
+	// Working 1/2 ?
 	entries() {
 		console.log("Returning all entries...");
 
