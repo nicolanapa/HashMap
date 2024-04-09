@@ -173,10 +173,42 @@ class HashMap {
 	}
 
 	// Same as keys() but returns all the values in an array
-	values() {}
+	values() {
+		console.log("Returning all values...");
+
+		let array = [];
+
+		for (let i = 0; i < this.buckets.length; i++) {
+			if (this.buckets[i] === undefined) {
+			} else if (this.buckets[i].hashedKey >= 0) {
+				array.push(this.buckets[i].value);
+			}
+		}
+
+		return array;
+	}
 
 	//
-	entries() {}
+	entries() {
+		console.log("Returning all entries...");
+
+		let array = [];
+		let array2 = [];
+
+		for (let i = 0; i < this.buckets.length; i++) {
+			if (this.buckets[i] === undefined) {
+			} else if (this.buckets[i].hashedKey >= 0) {
+				array2 = [];
+
+				array2.push(this.buckets[i].hashedKey);
+				array2.push(this.buckets[i].value);
+
+				array.push(array2);
+			}
+		}
+
+		return array;
+	}
 }
 
 function test() {
