@@ -66,7 +66,7 @@ class HashMap {
 	}
 
 	// Returns a value assigned to a given key, otherwise null
-	// Working
+	// Working, updated
 	get(key) {
 		console.log("Getting value assigned to:", key);
 
@@ -79,8 +79,9 @@ class HashMap {
 			if (this.buckets[hashedKey] === undefined) {
 				return null;
 			} else {
-				if (this.buckets[hashedKey].nonHashedKey === nonHashedKey) {
-					return this.buckets[hashedKey].value;
+				if (this.buckets[hashedKey].nonHashedKey.indexOf(nonHashedKey) >= 0) {
+					let temp = this.buckets[hashedKey].nonHashedKey.indexOf(nonHashedKey);
+					return this.buckets[hashedKey].value[temp];
 				} else {
 					return null;
 				}
@@ -249,7 +250,7 @@ function test() {
 	//prova0.set("Play@e#r", "Agente 008");
 	console.log();
 
-	console.log(prova0.get("Luca"));
+	//console.log(prova0.get("Luca"));
 	console.log();
 	console.log(prova0.has("Luca"));
 	console.log();
@@ -260,6 +261,8 @@ function test() {
 	console.log();
 	// Marco1 === Luca === 7
 	prova0.set("Marco1", "Agente 0070");
+	console.log();
+	console.log(prova0.get("Pago Col Pos"));
 	console.log(prova0.remove("Marco1"));
 	console.log();
 	/*console.log(prova0.get("Marco"));
