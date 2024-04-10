@@ -1,9 +1,3 @@
-/*
-if (index < 0 || index >= buckets.length) {
-  throw new Error("Trying to access index out of bound");
-}
-*/
-
 class Bucket {
 	constructor(nonHashedKey, value) {
 		this.nonHashedKey = [nonHashedKey];
@@ -19,7 +13,7 @@ class HashMap {
 	}
 
 	// Hashes a given key to any number from 0 to length of bucket
-	// Working
+	// Working, updated
 	hash(key) {
 		console.log("Hashing:", key);
 
@@ -38,7 +32,7 @@ class HashMap {
 
 	// Key assigned to value if there isn't a Key with the same key
 	// Updates a key's value with a new value if there's already a key
-	// Working
+	// Working, updated
 	set(key, value) {
 		console.log("Trying to set/overwrite", key, "with", value);
 
@@ -58,11 +52,10 @@ class HashMap {
 				if (this.buckets[hashedKey].nonHashedKey.indexOf(nonHashedKey) >= 0) {
 					// If there's the key
 					let temp = this.buckets[hashedKey].nonHashedKey.indexOf(nonHashedKey);
-					// Like this.buckets[hashedKey].value[length of value - 1]
 					this.buckets[hashedKey].value[temp] = value;
 
 					console.log("Your overwrited value:", this.buckets[hashedKey].value[temp]);
-				} else if (this.buckets[hashedKey].nonHashedKey.includes(nonHashedKey) === -1) {
+				} else if (this.buckets[hashedKey].nonHashedKey.indexOf(nonHashedKey) === -1) {
 					// Different key
 
 					this.buckets[hashedKey].nonHashedKey.push(nonHashedKey);
@@ -162,7 +155,7 @@ class HashMap {
 	}
 
 	// Removes everything in a hash map but keeps the length
-	// Working
+	// Working, updated
 	clear() {
 		console.log("Removing everything...");
 
@@ -172,7 +165,7 @@ class HashMap {
 	}
 
 	// Returns an array containing all the keys
-	// Working
+	// Working, updated
 	keys() {
 		console.log("Returning all keys...");
 
@@ -247,27 +240,27 @@ function test() {
 	//prova0.hash("Luca");
 	prova0.set("Luca", "Agente 00");
 	console.log();
-	prova0.set("Mario Rossi", "Agente 000");
+	//prova0.set("Mario Rossi", "Agente 000");
 	prova0.set("Pago Col Pos", "Agente 013");
 	prova0.set("Cioppa Tutto", "Agente 006");
-	prova0.set("Riccardo Burioni", "Agente 003");
-	prova0.set("John", "Agente 011");
-	prova0.set("Player", "Agente 001");
-	prova0.set("Play@e#r", "Agente 008");
+	//prova0.set("Riccardo Burioni", "Agente 003");
+	//prova0.set("John", "Agente 011");
+	//prova0.set("Player", "Agente 001");
+	//prova0.set("Play@e#r", "Agente 008");
 	console.log();
 
 	console.log(prova0.get("Luca"));
 	console.log();
 	console.log(prova0.has("Luca"));
 	console.log();
-	console.log(prova0.has("Lucas"));
-	console.log();
+	//console.log(prova0.has("Lucas"));
+	//console.log();
 
 	prova0.set("Marco", "Agente 0010");
 	console.log();
 	// Marco1 === Luca === 7
 	prova0.set("Marco1", "Agente 0070");
-	//console.log(prova0.remove("Marco"));
+	console.log(prova0.remove("Marco1"));
 	console.log();
 	/*console.log(prova0.get("Marco"));
 	console.log();
