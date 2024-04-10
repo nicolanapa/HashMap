@@ -6,8 +6,8 @@ if (index < 0 || index >= buckets.length) {
 
 class Bucket {
 	constructor(nonHashedKey, value) {
-		this.nonHashedKey = nonHashedKey;
-		this.value = value;
+		this.nonHashedKey = [nonHashedKey];
+		this.value = [value];
 	}
 }
 
@@ -32,7 +32,6 @@ class HashMap {
 			hashCode = hashCode % this.buckets.length;
 		}
 
-		// To remove?
 		console.log("Your hashed key:", hashCode);
 		return hashCode;
 	}
@@ -42,6 +41,7 @@ class HashMap {
 	// Working
 	set(key, value) {
 		console.log("Trying to set/overwrite", key, "with", value);
+
 		this.growth();
 		let nonHashedKey = key;
 		let hashedKey = this.hash(key);
@@ -53,16 +53,20 @@ class HashMap {
 				this.buckets[hashedKey] = new Bucket(nonHashedKey, value);
 
 				console.log("Your new hashedKey:", hashedKey);
-				console.log("Your new value:", this.buckets[hashedKey].value);
+				console.log("Your new value:", this.buckets[hashedKey].value[0]);
 			} else {
-				if (this.buckets[hashedKey].nonHashedKey === key) {
-					console.log("Overwriting:", this.buckets[hashedKey].value);
+				if (this.buckets[hashedKey].nonHashedKey.indexOf(nonHashedKey) >= 0) {
+					// If there's the key
+					let temp = this.buckets[hashedKey].nonHashedKey.indexOf(nonHashedKey);
+					// Like this.buckets[hashedKey].value[length of value - 1]
+					this.buckets[hashedKey].value[temp] = value;
 
-					this.buckets[hashedKey].value = value;
+					console.log("Your overwrited value:", this.buckets[hashedKey].value[temp]);
+				} else if (this.buckets[hashedKey].nonHashedKey.includes(nonHashedKey) === -1) {
+					// Different key
 
-					console.log("Your overwrited value:", this.buckets[hashedKey].value);
-				} else {
-					console.log("Creating a new array...");
+					this.buckets[hashedKey].nonHashedKey.push(nonHashedKey);
+					this.buckets[hashedKey].value.push(value);
 				}
 			}
 		}
@@ -139,7 +143,7 @@ class HashMap {
 	}
 
 	// Returns the number of stored keys
-	// Working
+	// Working, updated
 	length() {
 		console.log("Getting length...");
 
@@ -148,7 +152,9 @@ class HashMap {
 		for (let i = 0; i < this.buckets.length; i++) {
 			if (this.buckets[i] === undefined) {
 			} else if (this.buckets[i].nonHashedKey !== undefined) {
-				stored += 1;
+				for (let i2 = 0; i2 < this.buckets[i].nonHashedKey.length; i2++) {
+					stored += 1;
+				}
 			}
 		}
 
@@ -183,7 +189,7 @@ class HashMap {
 	}
 
 	// Same as keys() but returns all the values in an array
-	// Working
+	// Working, updated
 	values() {
 		console.log("Returning all values...");
 
@@ -201,7 +207,7 @@ class HashMap {
 
 	// Returns an array that contains each (key, value) pair
 	// [[firstKey, firstValue], [secondKey, secondValue]]
-	// Working 1/2 ?
+	// Working, updated
 	entries() {
 		console.log("Returning all entries...");
 
@@ -224,11 +230,11 @@ class HashMap {
 	}
 
 	// Grows the bucket when the used values take up 0.4 of a bucket
-	// Working
+	// Working, updated
 	growth() {
 		let stored = this.length();
 
-		if (stored >= 0.4 * this.buckets.length) {
+		if (stored >= 0.6 * this.buckets.length) {
 			this.buckets.length *= 2;
 
 			console.log("New length:", this.buckets.length);
@@ -257,15 +263,16 @@ function test() {
 	console.log(prova0.has("Lucas"));
 	console.log();
 
-	// Marco1 === Luca === 7
 	prova0.set("Marco", "Agente 0010");
 	console.log();
-	console.log(prova0.remove("Marco"));
+	// Marco1 === Luca === 7
+	prova0.set("Marco1", "Agente 0070");
+	//console.log(prova0.remove("Marco"));
 	console.log();
-	console.log(prova0.get("Marco"));
+	/*console.log(prova0.get("Marco"));
 	console.log();
 	console.log(prova0.has("Marco"));
-	console.log();
+	console.log();*/
 	prova0.set("Luca", "Agente 007");
 	console.log();
 
