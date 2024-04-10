@@ -9,6 +9,7 @@ class Node {
 	constructor(hashedKey, value) {
 		this.hashedKey = hashedKey;
 		this.value = value;
+		//this.nextNode = null;
 	}
 }
 
@@ -19,7 +20,7 @@ class HashMap {
 		console.log(this.buckets);
 	}
 
-	// Hashes a given key to any number from 0 to 15
+	// Hashes a given key to any number from 0 to length of bucket
 	// Working
 	hash(key) {
 		console.log("Hashing:", key);
@@ -30,7 +31,7 @@ class HashMap {
 		for (let i = 0; i < key.length; i++) {
 			hashCode = primeNumber * hashCode + key.charCodeAt(i);
 
-			hashCode = hashCode % 16;
+			hashCode = hashCode % this.buckets.length;
 		}
 
 		// To remove?
@@ -49,6 +50,7 @@ class HashMap {
 	set(key, value) {
 		console.log("Trying to set/overwrite", key, "with", value);
 
+		this.growth();
 		let hashedKey = this.hash(key);
 
 		if (this.hashedKey < 0 || hashedKey >= this.buckets.length) {
@@ -212,6 +214,18 @@ class HashMap {
 
 		return array;
 	}
+
+	// Grows the bucket when the used values take up 0.4 of a bucket
+	// Working
+	growth() {
+		let stored = this.length();
+
+		if (stored >= 0.4 * this.buckets.length) {
+			this.buckets.length *= 2;
+
+			console.log("New length:", this.buckets.length);
+		}
+	}
 }
 
 function test() {
@@ -223,6 +237,10 @@ function test() {
 	prova0.set("Mario Rossi", "Agente 000");
 	prova0.set("Pago Col Pos", "Agente 013");
 	prova0.set("Cioppa Tutto", "Agente 006");
+	prova0.set("Riccardo Burioni", "Agente 003");
+	prova0.set("John", "Agente 011");
+	prova0.set("Player", "Agente 001");
+	prova0.set("Play@e#r", "Agente 008");
 	console.log();
 
 	console.log(prova0.get("Luca"));
@@ -261,6 +279,8 @@ function test() {
 	console.log();
 	console.log(prova0.entries());
 	console.log();
+
+	console.log("Total length:", prova0.buckets.length);
 }
 
 test();
