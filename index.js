@@ -90,7 +90,7 @@ class HashMap {
 	}
 
 	// Returns true if it has key, otherwise false
-	// Working
+	// Working, updated
 	has(key) {
 		console.log("Checking if it has:", key);
 
@@ -103,7 +103,7 @@ class HashMap {
 			if (this.buckets[hashedKey] === undefined) {
 				return false;
 			} else {
-				if (this.buckets[hashedKey].nonHashedKey === nonHashedKey) {
+				if (this.buckets[hashedKey].nonHashedKey.indexOf(nonHashedKey) >= 0) {
 					return true;
 				} else {
 					return false;
@@ -126,8 +126,10 @@ class HashMap {
 			if (this.buckets[hashedKey] === undefined) {
 				return false;
 			} else {
-				if (this.buckets[hashedKey].nonHashedKey === nonHashedKey) {
-					this.buckets[hashedKey] = undefined;
+				if (this.buckets[hashedKey].nonHashedKey.indexOf(nonHashedKey) >= 0) {
+					let temp = this.buckets[hashedKey].nonHashedKey.indexOf(nonHashedKey);
+					this.buckets[hashedKey].nonHashedKey[temp] = undefined;
+					this.buckets[hashedKey].value[temp] = undefined;
 					return true;
 				} else {
 					return false;
@@ -263,6 +265,7 @@ function test() {
 	prova0.set("Marco1", "Agente 0070");
 	console.log();
 	console.log(prova0.get("Pago Col Pos"));
+	console.log(prova0.has("Pago Col Pos"));
 	console.log(prova0.remove("Marco1"));
 	console.log();
 	/*console.log(prova0.get("Marco"));
