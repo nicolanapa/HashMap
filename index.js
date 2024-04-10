@@ -130,6 +130,15 @@ class HashMap {
 					let temp = this.buckets[hashedKey].nonHashedKey.indexOf(nonHashedKey);
 					this.buckets[hashedKey].nonHashedKey[temp] = undefined;
 					this.buckets[hashedKey].value[temp] = undefined;
+
+					/*const compareObjects = (a, b) => a.value - b.value;
+					this.buckets[hashedKey].nonHashedKey[temp] = this.buckets[hashedKey].nonHashedKey
+						.filter((nonHashedKey) => nonHashedKey.value !== undefined)
+						.sort(compareObjects);
+					this.buckets[hashedKey].value[temp] = this.buckets[hashedKey].value
+						.filter((value) => value.value !== undefined)
+						.sort(compareObjects);
+					*/
 					return true;
 				} else {
 					return false;
