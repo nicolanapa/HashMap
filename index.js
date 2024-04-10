@@ -4,12 +4,9 @@ if (index < 0 || index >= buckets.length) {
 }
 */
 
-// Change from Node to Bucket ?
-class Node {
-	constructor(hashedKey, value) {
-		this.hashedKey = hashedKey;
+class Bucket {
+	constructor(value) {
 		this.value = value;
-		//this.nextNode = null;
 	}
 }
 
@@ -41,12 +38,7 @@ class HashMap {
 
 	// Key assigned to value if there isn't a Key with the same key
 	// Updates a key's value with a new value if there's already a key
-	/* 
-        Working 1/2 
-        [need to use Linked List (or something similar) for
-         managing collisions (different keys inside the same bucket/Node)
-        ]
-     */
+	// Working
 	set(key, value) {
 		console.log("Trying to set/overwrite", key, "with", value);
 
@@ -57,18 +49,16 @@ class HashMap {
 			throw new Error("Trying to access index out of bound");
 		} else {
 			if (this.buckets[hashedKey] === undefined) {
-				this.buckets[hashedKey] = new Node(hashedKey, value);
+				this.buckets[hashedKey] = new Bucket(value);
 
-				console.log("Your new hashedKey:", this.buckets[hashedKey].hashedKey);
+				console.log("Your new hashedKey:", hashedKey);
 				console.log("Your new value:", this.buckets[hashedKey].value);
 			} else {
-				if (this.buckets[hashedKey].hashedKey === hashedKey) {
-					console.log("Overwriting:", this.buckets[hashedKey].value);
+				console.log("Overwriting:", this.buckets[hashedKey].value);
 
-					this.buckets[hashedKey].value = value;
+				this.buckets[hashedKey].value = value;
 
-					console.log("Your overwrited value:", this.buckets[hashedKey].value);
-				}
+				console.log("Your overwrited value:", this.buckets[hashedKey].value);
 			}
 		}
 	}
@@ -103,7 +93,7 @@ class HashMap {
 		} else {
 			if (this.buckets[hashedKey] === undefined) {
 				return false;
-			} else if (this.buckets[hashedKey].hashedKey === hashedKey) {
+			} else if (this.buckets[hashedKey] !== undefined) {
 				return true;
 			} else {
 				return false;
@@ -123,7 +113,7 @@ class HashMap {
 		} else {
 			if (this.buckets[hashedKey] === undefined) {
 				return false;
-			} else if (this.buckets[hashedKey].hashedKey === hashedKey) {
+			} else if (this.buckets[hashedKey] !== undefined) {
 				this.buckets[hashedKey] = undefined;
 				return true;
 			}
@@ -139,7 +129,7 @@ class HashMap {
 
 		for (let i = 0; i < this.buckets.length; i++) {
 			if (this.buckets[i] === undefined) {
-			} else if (this.buckets[i].hashedKey >= 0) {
+			} else if (this.buckets[i] !== undefined) {
 				stored += 1;
 			}
 		}
@@ -166,8 +156,8 @@ class HashMap {
 
 		for (let i = 0; i < this.buckets.length; i++) {
 			if (this.buckets[i] === undefined) {
-			} else if (this.buckets[i].hashedKey >= 0) {
-				array.push(this.buckets[i].hashedKey);
+			} else if (this.buckets[i] !== undefined) {
+				array.push(i);
 			}
 		}
 
@@ -183,7 +173,7 @@ class HashMap {
 
 		for (let i = 0; i < this.buckets.length; i++) {
 			if (this.buckets[i] === undefined) {
-			} else if (this.buckets[i].hashedKey >= 0) {
+			} else {
 				array.push(this.buckets[i].value);
 			}
 		}
@@ -202,10 +192,10 @@ class HashMap {
 
 		for (let i = 0; i < this.buckets.length; i++) {
 			if (this.buckets[i] === undefined) {
-			} else if (this.buckets[i].hashedKey >= 0) {
+			} else {
 				array2 = [];
 
-				array2.push(this.buckets[i].hashedKey);
+				array2.push(i);
 				array2.push(this.buckets[i].value);
 
 				array.push(array2);
