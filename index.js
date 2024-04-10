@@ -55,11 +55,15 @@ class HashMap {
 				console.log("Your new hashedKey:", hashedKey);
 				console.log("Your new value:", this.buckets[hashedKey].value);
 			} else {
-				if (this.buckets.nonHashedKey === key) console.log("Overwriting:", this.buckets[hashedKey].value);
+				if (this.buckets[hashedKey].nonHashedKey === key) {
+					console.log("Overwriting:", this.buckets[hashedKey].value);
 
-				this.buckets[hashedKey].value = value;
+					this.buckets[hashedKey].value = value;
 
-				console.log("Your overwrited value:", this.buckets[hashedKey].value);
+					console.log("Your overwrited value:", this.buckets[hashedKey].value);
+				} else {
+					console.log("Creating a new array...");
+				}
 			}
 		}
 	}
@@ -80,6 +84,8 @@ class HashMap {
 			} else {
 				if (this.buckets[hashedKey].nonHashedKey === nonHashedKey) {
 					return this.buckets[hashedKey].value;
+				} else {
+					return null;
 				}
 			}
 		}
@@ -235,7 +241,6 @@ function test() {
 	//prova0.hash("Luca");
 	prova0.set("Luca", "Agente 00");
 	console.log();
-	prova0.set("Luca", "Agente 007");
 	prova0.set("Mario Rossi", "Agente 000");
 	prova0.set("Pago Col Pos", "Agente 013");
 	prova0.set("Cioppa Tutto", "Agente 006");
@@ -261,6 +266,8 @@ function test() {
 	console.log();
 	console.log(prova0.has("Marco"));
 	console.log();
+	prova0.set("Luca", "Agente 007");
+	console.log();
 
 	console.log(prova0.length());
 	console.log();
@@ -271,7 +278,7 @@ function test() {
 	console.log(prova0.entries());
 	console.log();
 
-	prova0.clear();
+	/*prova0.clear();
 	console.log();
 	console.log(prova0.length());
 	console.log();
@@ -280,7 +287,7 @@ function test() {
 	console.log(prova0.values());
 	console.log();
 	console.log(prova0.entries());
-	console.log();
+	console.log();*/
 
 	console.log("Total length:", prova0.buckets.length);
 }
