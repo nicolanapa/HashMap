@@ -113,7 +113,7 @@ class HashMap {
 	}
 
 	// Removes and returns true if a element has a given key, otherwise returns only false
-	// Working
+	// Working, updated
 	remove(key) {
 		console.log("Trying to remove element with key:", key);
 
