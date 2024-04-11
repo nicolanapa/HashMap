@@ -131,14 +131,13 @@ class HashMap {
 					this.buckets[hashedKey].nonHashedKey[temp] = undefined;
 					this.buckets[hashedKey].value[temp] = undefined;
 
-					/*const compareObjects = (a, b) => a.value - b.value;
-					this.buckets[hashedKey].nonHashedKey[temp] = this.buckets[hashedKey].nonHashedKey
-						.filter((nonHashedKey) => nonHashedKey.value !== undefined)
-						.sort(compareObjects);
-					this.buckets[hashedKey].value[temp] = this.buckets[hashedKey].value
-						.filter((value) => value.value !== undefined)
-						.sort(compareObjects);
-					*/
+					this.buckets[hashedKey].nonHashedKey = this.buckets[hashedKey].nonHashedKey.filter(function (element) {
+						return element !== undefined;
+					});
+					this.buckets[hashedKey].value = this.buckets[hashedKey].value.filter(function (element) {
+						return element !== undefined;
+					});
+
 					return true;
 				} else {
 					return false;
