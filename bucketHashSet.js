@@ -29,11 +29,11 @@ class HashSet {
 		return hashCode;
 	}
 
-	// Key assigned to value if there isn't a Key with the same key
-	// Updates a key's value with a new value if there's already a key
+	// Key assigned to  if there isn't a Key with the same key
+	// Updates a key's  with a new  if there's already a key
 	// Working, updated
-	set(key, value) {
-		console.log("Trying to set/overwrite", key, "with", value);
+	set(key) {
+		console.log("Trying to set/overwrite", key);
 
 		this.growth();
 		let nonHashedKey = key;
@@ -43,46 +43,19 @@ class HashSet {
 			throw new Error("Trying to access index out of bound");
 		} else {
 			if (this.buckets[hashedKey] === undefined) {
-				this.buckets[hashedKey] = new Bucket(nonHashedKey, value);
+				this.buckets[hashedKey] = new Bucket(nonHashedKey);
 
 				console.log("Your new hashedKey:", hashedKey);
-				console.log("Your new value:", this.buckets[hashedKey].value[0]);
+				console.log("Your new :", this.buckets[hashedKey].nonHashedKey[0]);
 			} else {
 				if (this.buckets[hashedKey].nonHashedKey.indexOf(nonHashedKey) >= 0) {
 					// If there's the key
 					let temp = this.buckets[hashedKey].nonHashedKey.indexOf(nonHashedKey);
-					this.buckets[hashedKey].value[temp] = value;
-
-					console.log("Your overwrited value:", this.buckets[hashedKey].value[temp]);
+					this.buckets[hashedKey].nonHashedKey[temp] = key;
 				} else if (this.buckets[hashedKey].nonHashedKey.indexOf(nonHashedKey) === -1) {
 					// Different key
 
 					this.buckets[hashedKey].nonHashedKey.push(nonHashedKey);
-					this.buckets[hashedKey].value.push(value);
-				}
-			}
-		}
-	}
-
-	// Returns a value assigned to a given key, otherwise null
-	// Working, updated
-	get(key) {
-		console.log("Getting value assigned to:", key);
-
-		let nonHashedKey = key;
-		let hashedKey = this.hash(key);
-
-		if (this.hashedKey < 0 || hashedKey >= this.buckets.length) {
-			throw new Error("Trying to access index out of bound");
-		} else {
-			if (this.buckets[hashedKey] === undefined) {
-				return null;
-			} else {
-				if (this.buckets[hashedKey].nonHashedKey.indexOf(nonHashedKey) >= 0) {
-					let temp = this.buckets[hashedKey].nonHashedKey.indexOf(nonHashedKey);
-					return this.buckets[hashedKey].value[temp];
-				} else {
-					return null;
 				}
 			}
 		}
@@ -128,12 +101,8 @@ class HashSet {
 				if (this.buckets[hashedKey].nonHashedKey.indexOf(nonHashedKey) >= 0) {
 					let temp = this.buckets[hashedKey].nonHashedKey.indexOf(nonHashedKey);
 					this.buckets[hashedKey].nonHashedKey[temp] = undefined;
-					this.buckets[hashedKey].value[temp] = undefined;
 
 					this.buckets[hashedKey].nonHashedKey = this.buckets[hashedKey].nonHashedKey.filter(function (element) {
-						return element !== undefined;
-					});
-					this.buckets[hashedKey].value = this.buckets[hashedKey].value.filter(function (element) {
 						return element !== undefined;
 					});
 
@@ -191,24 +160,7 @@ class HashSet {
 		return array;
 	}
 
-	// Same as keys() but returns all the values in an array
-	// Working, updated
-	values() {
-		console.log("Returning all values...");
-
-		let array = [];
-
-		for (let i = 0; i < this.buckets.length; i++) {
-			if (this.buckets[i] === undefined) {
-			} else if (this.buckets[i].value !== undefined) {
-				array.push(this.buckets[i].value);
-			}
-		}
-
-		return array;
-	}
-
-	// Returns an array that contains each (key, value) pair
+	// Returns an array that contains each (key, ) pair
 	// [[firstKey, firstValue], [secondKey, secondValue]]
 	// Working, updated
 	entries() {
@@ -223,7 +175,6 @@ class HashSet {
 				array2 = [];
 
 				array2.push(this.buckets[i].nonHashedKey);
-				array2.push(this.buckets[i].value);
 
 				array.push(array2);
 			}
